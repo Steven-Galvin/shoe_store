@@ -10,8 +10,13 @@ end
 
 get "/stores" do
   @stores = Store.all
-
   erb :stores
+end
+
+get "/stores/:id" do
+  id = params.fetch("id").to_i
+  @store = Store.find(id)
+  erb :store
 end
 
 post "/stores" do
@@ -24,12 +29,6 @@ post "/stores" do
     @message = "Please enter a name between 5 and 25 characters long."
   end
   erb :stores
-end
-
-get "/stores/:id" do
-  id = params.fetch("id").to_i
-  @store = Store.find(id)
-  erb :store
 end
 
 get "/stores/:id/add_brands" do
@@ -62,11 +61,52 @@ end
 # BRAND PATH
 
 get "/brands" do
+  @brands = Brand.all
 
   erb :brands
 end
 
 get "/brands/:id" do
-
+  id = params.fetch("id").to_i
+  @brand = Brand.find(id)
   erb :brand
+end
+
+post "/brands" do
+  @brands = Brand.all
+  name = params.fetch("name")
+  brand = Brand.new(:name => name)
+  if brand.save
+    @message = "Brand added successfully!"
+  else
+    @message = "Please enter a name between 5 and 15 characters long."
+  end
+  erb :brands
+end
+
+get "/brands/:id/add_stores" do
+  id = params.fetch("id").to_i
+  @brand = Brand.find(id)
+  @stores = Store.all
+  erb :add_stores_to_brand
+end
+
+patch "/brands/:id" do
+  name = params.fetch("name")
+  id = params.fetch("id").to_i
+  @brand = Brand.find(id)
+  if @brand.update({:name => name})
+    @message = "Brand updated successfully!"
+  else
+    @message = "Please enter a name between 5 and 25 characters long."
+    @brand.update({:name => "#{@brand.name}"})
+  end
+  redirect "/brands/#{id}"
+end
+
+delete "/brands/:id" do
+  id = params.fetch("id").to_i
+  @brand = Brand.find(id)
+  @brand.delete
+  redirect "/brands"
 end
