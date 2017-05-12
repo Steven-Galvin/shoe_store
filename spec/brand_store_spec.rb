@@ -8,7 +8,7 @@ describe Brand do
     expect(brand.save).to(eq(false))
   end
 
-  it "capitalizes names before creatings" do
+  it "capitalizes names before creating" do
     brand = Brand.create(name: "converse")
     expect(brand.name).to(eq("Converse"))
   end
@@ -27,7 +27,7 @@ describe Store do
     expect(store.save).to(eq(false))
   end
 
-  it "capitalizes names before creatings" do
+  it "capitalizes names before creating" do
     store = Store.create(name: "the shoe king")
     expect(store.name).to(eq("The Shoe King"))
   end

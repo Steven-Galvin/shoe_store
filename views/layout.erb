@@ -13,7 +13,41 @@
         <h1>Shoe Store</h1>
       </a>
     <hr>
+    <div class="row well">
+      <div class="col-sm-3">
+        <form action="/stores" method="get">
+          <input class="btn" type="submit" value="View Stores">
+        </form>
+      </div>
+      <div class="col-sm-3">
+        <form action="/brands" method="get">
+          <input class="btn" type="submit" value="View Brands">
+        </form>
+      </div>
+      <div class="col-sm-3">
+        <form action="/add_stores" method="get">
+          <input class="btn" type="submit" value="Add Stores">
+        </form>
+      </div>
+      <div class="col-sm-3">
+        <form action="/add_brands" method="get">
+          <input class="btn" type="submit" value="Add Brands">
+        </form>
+      </div>
+    </div>
       <%= yield %>
+      <hr>
+      <div class="row">
+        <div class="col-sm-4">
+          <a href="mailto:steven.john.galvin.com?Subject=Questions%20or%20Concerns" target="_top">Questions or Concerns?</a>
+        </div>
+        <div class="col-sm-4">
+          <a href="/">Return Home</a>
+        </div>
+        <div class="col-sm-4">
+          <a href="https://steven-galvin.github.io/portfolio/" target="_blank">Steven Galvin</a>
+        </div>
+      </div>
     </div>
   </body>
 </html>
