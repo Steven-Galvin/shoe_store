@@ -1,0 +1,7 @@
+<h3><%= @store.name %></h3>
+
+<%= if @store.brands.any? %>
+  test
+<% else %>
+  <p>This store doesn't have any brands yet. Click <a href="/stores/<%= @store.id %>/add_brands">here</a> to add some.</p>
+<% end %>

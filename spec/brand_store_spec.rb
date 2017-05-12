@@ -15,7 +15,7 @@ describe Brand do
 
   it "converts inputted cost into USD format" do
     brand = Brand.create(name: "converse", price: 45)
-    expect(brand.currency_converter(brand.price)).to(eq("45.00"))
+    expect(brand.currency_converter(brand.price)).to(eq("$45.00"))
   end
 end
 

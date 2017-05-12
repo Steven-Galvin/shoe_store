@@ -9,12 +9,26 @@ end
 # STORE PATH
 
 get "/stores" do
+  @stores = Store.all
 
   erb :stores
 end
 
-get "/stores/:id" do
+post "/stores" do
+  @stores = Store.all
+  name = params.fetch("name")
+  store = Store.new(:name => name)
+  if store.save
+    @message = "Store added successfully!"
+  else
+    @message = "Please enter a name between 5 and 25 characters long."
+  end
+  erb :stores
+end
 
+get "/stores/:id" do
+  id = params.fetch("id").to_i
+  @store = Store.find(id)
   erb :store
 end
 
@@ -26,6 +40,6 @@ get "/brands" do
 end
 
 get "/brands/:id" do
-  
+
   erb :brand
 end

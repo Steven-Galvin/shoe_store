@@ -1,0 +1,20 @@
+<h2>Stores</h2>
+
+<h5><%= @message %></h5>
+<div class="form-group">
+  <form action="/stores" method="post">
+    <input name="name" type="text" placeholder="Enter store name" required>
+    <button type="submit">Add Store</button>
+  </form>
+</div>
+
+<% if @stores.any? %>
+  <h3>Here are all the stores you've added:</h3>
+  <ul>
+    <% @stores.each do |store| %>
+    <li><a href="/stores/<%= store.id %>"><%= store.name %></a></li>
+  <% end %>
+  </ul>
+<% else %>
+  <p>You haven't added any stores yet.</p>
+<% end %>
