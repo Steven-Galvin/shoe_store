@@ -1,0 +1,20 @@
+<h2>Brands</h2>
+
+<h5><%= @message %></h5>
+<div class="form-group">
+  <form action="/brands" method="post">
+    <input name="name" type="text" placeholder="Enter brand name" required>
+    <button type="submit">Add Brand</button>
+  </form>
+</div>
+
+<% if @brands.any? %>
+  <h3>Here are all the brands you've added:</h3>
+  <ul>
+    <% @brands.each do |brand| %>
+    <li><a href="/brands/<%= brand.id %>"><%= brand.name %></a></li>
+  <% end %>
+  </ul>
+<% else %>
+  <p>You haven't added any brands yet.</p>
+<% end %>

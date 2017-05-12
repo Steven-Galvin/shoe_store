@@ -32,6 +32,33 @@ get "/stores/:id" do
   erb :store
 end
 
+get "/stores/:id/add_brands" do
+  id = params.fetch("id").to_i
+  @store = Store.find(id)
+  @brands = Brand.all
+  erb :add_brands_to_store
+end
+
+patch "/stores/:id" do
+  name = params.fetch("name")
+  id = params.fetch("id").to_i
+  @store = Store.find(id)
+  if @store.update({:name => name})
+    @message = "Store updated successfully!"
+  else
+    @message = "Please enter a name between 5 and 25 characters long."
+    @store.update({:name => "#{@store.name}"})
+  end
+  redirect "/stores/#{id}"
+end
+
+delete "/stores/:id" do
+  id = params.fetch("id").to_i
+  @store = Store.find(id)
+  @store.delete
+  redirect "/stores"
+end
+
 # BRAND PATH
 
 get "/brands" do
