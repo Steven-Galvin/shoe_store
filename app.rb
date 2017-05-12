@@ -58,6 +58,16 @@ delete "/stores/:id" do
   redirect "/stores"
 end
 
+patch "/stores/:id/brands" do
+  store_id = params['id'].to_i
+  @store = Store.find(store_id)
+  current_ids = @store.brands.map(&:id)
+  brand_ids = params['brand_ids']
+  all_brands = current_ids + brand_ids
+  @store.update({:brand_ids => all_brands})
+  redirect "/stores/#{store_id}"
+end
+
 # BRAND PATH
 
 get "/brands" do
@@ -109,4 +119,14 @@ delete "/brands/:id" do
   @brand = Brand.find(id)
   @brand.delete
   redirect "/brands"
+end
+
+patch "/brands/:id/stores" do
+  brand_id = params['id'].to_i
+  @brand = Brand.find(brand_id)
+  current_ids = @brand.stores.map(&:id)
+  store_ids = params['store_ids']
+  all_stores = current_ids + store_ids
+  @brand.update({:store_ids => all_stores})
+  redirect "/brands/#{brand_id}"
 end

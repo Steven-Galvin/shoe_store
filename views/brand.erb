@@ -1,9 +1,9 @@
-<h3><%= @brand.name %></h3>
+<h3>Brand: <%= @brand.name %></h3>
 
 <div class="row">
   <div class="col-md-6">
     <% if @brand.stores.any? %>
-      <h4>Here are the stores this brand sells:</h4>
+      <h4>Here are the stores that sell this brand:</h4>
       <ul>
         <% @brand.stores.each do |store| %>
         <li><a href="/stores/<%= store.id %>"><%= store.name %></a></li>
@@ -11,7 +11,7 @@
       </ul>
       <p>Click <a href="/brands/<%= @brand.id %>/add_stores">here</a> to add more stores.</p>
     <% else %>
-      <p>This brand doesn't have any stores yet. Click <a href="/brands/<%= @brand.id %>/add_stores">here</a> to add some.</p>
+      <p>This brand doesn't have any stores selling it yet. Click <a href="/brands/<%= @brand.id %>/add_stores">here</a> to add some.</p>
     <% end %>
   </div>
   <div class="col-md-6">
@@ -22,7 +22,7 @@
         <label for="name">Update brand name:</label>
         <br>
         <input name="name" type="text" placeholder="Enter new brand name" required>
-        <button type="submit">Update Brand</button>
+        <button type="submit" class="btn-info">Update Brand</button>
       </form>
     </div>
     <br>
