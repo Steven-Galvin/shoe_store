@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Shoe Store</title>
+    <link href="https://fonts.googleapis.com/css?family=Catamaran|Montserrat" rel="stylesheet">
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
     <link  rel='stylesheet' href="/css/styles.css" >
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
@@ -9,20 +10,24 @@
   </head>
   <body>
     <div class="container">
-      <a href="/">
-        <h1>Shoe Store</h1>
+      <a href="/" id="header">
+        <div class="well">
+          <h1>Shoe Store</h1>
+        </div>
       </a>
     <hr>
-    <div class="row well">
-      <div class="col-sm-6" style="text-align: center; border-right:1px solid lightgrey">
-        <form action="/stores" method="get">
-          <input class="btn-success" type="submit" value="View Stores">
-        </form>
-      </div>
-      <div class="col-sm-6" style="text-align: center; border-left:1px solid lightgrey">
-        <form action="/brands" method="get">
-          <input class="btn-success" type="submit" value="View Brands">
-        </form>
+    <div class="well well-sm">
+      <div class="row">
+        <div class="col-sm-6" style="text-align: center; border-right:1px solid grey">
+          <form action="/stores" method="get">
+            <input class="btn-success btn-sm" type="submit" value="View Stores">
+          </form>
+        </div>
+        <div class="col-sm-6" style="text-align: center; border-left:1px solid grey">
+          <form action="/brands" method="get">
+            <input class="btn-success btn-sm" type="submit" value="View Brands">
+          </form>
+        </div>
       </div>
     </div>
       <%= yield %>

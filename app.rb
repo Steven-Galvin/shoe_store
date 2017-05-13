@@ -51,13 +51,6 @@ patch "/stores/:id" do
   redirect "/stores/#{id}"
 end
 
-delete "/stores/:id" do
-  id = params.fetch("id").to_i
-  @store = Store.find(id)
-  @store.delete
-  redirect "/stores"
-end
-
 patch "/stores/:id/brands" do
   store_id = params['id'].to_i
   @store = Store.find(store_id)
@@ -68,11 +61,23 @@ patch "/stores/:id/brands" do
   redirect "/stores/#{store_id}"
 end
 
+delete "/stores/delete" do
+  id = params.fetch("store_id")
+  Store.where(id: id).destroy_all
+  redirect "/stores"
+end
+
+delete "/stores/:id" do
+  id = params.fetch("id").to_i
+  @store = Store.find(id)
+  @store.delete
+  redirect "/stores"
+end
+
 # BRAND PATH
 
 get "/brands" do
   @brands = Brand.all
-
   erb :brands
 end
 
@@ -85,7 +90,8 @@ end
 post "/brands" do
   @brands = Brand.all
   name = params.fetch("name")
-  brand = Brand.new(:name => name)
+  price = params.fetch("price")
+  brand = Brand.new(:name => name, :raw_price => price)
   if brand.save
     @message = "Brand added successfully!"
   else
@@ -101,7 +107,7 @@ get "/brands/:id/add_stores" do
   erb :add_stores_to_brand
 end
 
-patch "/brands/:id" do
+patch "/brands/:id/update_name" do
   name = params.fetch("name")
   id = params.fetch("id").to_i
   @brand = Brand.find(id)
@@ -114,11 +120,17 @@ patch "/brands/:id" do
   redirect "/brands/#{id}"
 end
 
-delete "/brands/:id" do
+patch "/brands/:id/update_price" do
+  price = params.fetch("price")
   id = params.fetch("id").to_i
   @brand = Brand.find(id)
-  @brand.delete
-  redirect "/brands"
+  if @brand.update({:raw_price => price})
+    @message = "Brand updated successfully!"
+  else
+    @message = "Please enter a valid number"
+    @brand.update({:raw_price => "#{@brand.raw_price}"})
+  end
+  redirect "/brands/#{id}"
 end
 
 patch "/brands/:id/stores" do
@@ -129,4 +141,17 @@ patch "/brands/:id/stores" do
   all_stores = current_ids + store_ids
   @brand.update({:store_ids => all_stores})
   redirect "/brands/#{brand_id}"
+end
+
+delete "/brands/delete" do
+  id = params.fetch("brand_id")
+  Brand.where(id: id).destroy_all
+  redirect "/brands"
+end
+
+delete "/brands/:id" do
+  id = params.fetch("id").to_i
+  @brand = Brand.find(id)
+  @brand.delete
+  redirect "/brands"
 end

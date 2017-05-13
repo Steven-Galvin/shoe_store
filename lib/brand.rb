@@ -1,18 +1,17 @@
 class Brand < ActiveRecord::Base
   has_and_belongs_to_many :stores
-  validates :name, {:presence => true, :length => { in: 5..15 }}
-  validates :price, {:presence => true}
+  validates :name, {:presence => true, :uniqueness => true, :length => { in: 5..100 }}
+  validates :raw_price, {:presence => true}
   before_save :capitalize_name
+  before_save :currency_converter
 
-  def currency_converter(input)
-    cost = sprintf('%.2f', input)
-    result = "$" + cost
-    return result
-  end
 
 private
-
   def capitalize_name
     self.name=(name.split(/(\W)/).map(&:capitalize).join)
+  end
+
+  def currency_converter
+    self.final_price = '$' + ('%.2f' % self.raw_price)
   end
 end
