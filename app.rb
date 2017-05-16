@@ -26,7 +26,7 @@ post "/stores" do
   if store.save
     @message = "Store added successfully!"
   else
-    @message = "Please enter a name between 5 and 25 characters long."
+    @message = "Please enter a name between 5 and 100 characters long."
   end
   erb :stores
 end
@@ -45,7 +45,7 @@ patch "/stores/:id" do
   if @store.update({:name => name})
     @message = "Store updated successfully!"
   else
-    @message = "Please enter a name between 5 and 25 characters long."
+    @message = "Please enter a name between 5 and 100 characters long."
     @store.update({:name => "#{@store.name}"})
   end
   redirect "/stores/#{id}"
@@ -95,7 +95,7 @@ post "/brands" do
   if brand.save
     @message = "Brand added successfully!"
   else
-    @message = "Please enter a name between 5 and 15 characters long."
+    @message = "Please enter a name between 5 and 100 characters long."
   end
   erb :brands
 end
@@ -114,7 +114,7 @@ patch "/brands/:id/update_name" do
   if @brand.update({:name => name})
     @message = "Brand updated successfully!"
   else
-    @message = "Please enter a name between 5 and 25 characters long."
+    @message = "Please enter a name between 5 and 100 characters long."
     @brand.update({:name => "#{@brand.name}"})
   end
   redirect "/brands/#{id}"
